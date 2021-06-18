@@ -6,4 +6,4 @@
 
 - Week 0 - Search:
   - Degrees
-  - Tic-Tac-Toe
+  - Tic-Tac-Toe: Concluído
