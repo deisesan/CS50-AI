@@ -1,4 +1,4 @@
-from math import inf as infinito
+from math import inf as infinite
 from copy import deepcopy
 
 X = "X"
@@ -29,14 +29,14 @@ def player(board):
 #Retorna todas as jogadas disponíveis
 def actions(board):
 
-    acoes = []
+    action = []
 
     for i in range(3):
         for j in range(3):
             if board[i][j] == EMPTY:
-                acoes.append([i, j])
+                action.append([i, j])
         
-    return acoes
+    return action
 
 #Retorna o tabuleiro que resulta ao fazer a jogada i,j
 def result(board, action):
@@ -49,31 +49,31 @@ def result(board, action):
 #Retorna o ganhador, se houver
 def winner(board):
 
-    for comparar in [X, O]:
+    for mark in [X, O]:
 
-        if board[0][0] == board[0][1] == board[0][2] == comparar:
-            return comparar
+        if board[0][0] == board[0][1] == board[0][2] == mark:
+            return mark
 
-        if board[1][0] == board[1][1] == board[1][2] == comparar:
-            return comparar    
+        if board[1][0] == board[1][1] == board[1][2] == mark:
+            return mark    
 
-        if board[2][0] == board[2][1] == board[2][2] == comparar:
-            return comparar
+        if board[2][0] == board[2][1] == board[2][2] == mark:
+            return mark
 
-        if board[0][0] == board[1][0] == board[2][0] == comparar:
-            return comparar
+        if board[0][0] == board[1][0] == board[2][0] == mark:
+            return mark
 
-        if board[0][1] == board[1][1] == board[2][1] == comparar:
-            return comparar   
+        if board[0][1] == board[1][1] == board[2][1] == mark:
+            return mark   
 
-        if board[0][2] == board[1][2] == board[2][2] == comparar:
-            return comparar
+        if board[0][2] == board[1][2] == board[2][2] == mark:
+            return mark
 
-        if board[0][0] == board[1][1] == board[2][2] == comparar:
-            return comparar    
+        if board[0][0] == board[1][1] == board[2][2] == mark:
+            return mark    
 
-        if board[0][2] == board[1][1] == board[2][0] == comparar:
-            return comparar
+        if board[0][2] == board[1][1] == board[2][0] == mark:
+            return mark
 
     return EMPTY                     
 
@@ -108,53 +108,52 @@ def minimax(board):
 
     if player(board) == X:
 
-        valorMax = -infinito
+        valueMax = -infinite
 
-        for acao in actions(board):
-            valorAux = minValue(result(board, acao))
+        for action in actions(board):
+            valueAux = minValue(result(board, action))
 
-            if valorAux > valorMax:
-                
-                valorMax = valorAux
-                retorno = acao
+            if valueAux > valueMax:
+                valueMax = valueAux
+                res = action
 
-        return retorno
+        return res
 
     elif player(board) == O:
 
-        valorMin = infinito
+        valueMin = infinite
 
-        for acao in actions(board):
-            valorAux = maxValue(result(board, acao))
+        for action in actions(board):
+            valueAux = maxValue(result(board, action))
 
-            if valorAux < valorMin:
-                valorMin = valorAux
-                retorno = acao
+            if valueAux < valueMin:
+                valueMin = valueAux
+                res = action
 
-        return retorno
+        return res
 
 def maxValue(board):
 
     if terminal(board) == True:
         return utility(board)
 
-    valorMax = -infinito
+    valueMax = -infinite
 
-    for acao in actions(board):
-        auxiliar = result(board, acao)
-        valorMax = max(valorMax, minValue(auxiliar))
+    for action in actions(board):
+        aux = result(board, action)
+        valueMax = max(valueMax, minValue(aux))
 
-    return valorMax
+    return valueMax
 
 def minValue(board):
 
     if terminal(board) == True:
         return utility(board)
 
-    valorMin = infinito
+    valueMin = infinite
 
-    for acao in actions(board):
-        auxiliar = result(board, acao)
-        valorMin = min(valorMin, maxValue(auxiliar))
+    for action in actions(board):
+        aux = result(board, action)
+        valueMin = min(valueMin, maxValue(aux))
 
-    return valorMin  
+    return valueMin  
